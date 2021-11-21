@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Fond63Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Fond63Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Faculty" EntityType="Fond63Model.Faculty" />
+    <EntitySet Name="Room" EntityType="Fond63Model.Room" />
+    <EntitySet Name="sysdiagrams" EntityType="Fond63Model.sysdiagrams" />
+    <EntitySet Name="Unifercity" EntityType="Fond63Model.Unifercity" />
+    <EntitySet Name="UnifercityFacultyRoom" EntityType="Fond63Model.UnifercityFacultyRoom" />
+    <AssociationSet Name="FK_UnifercityFacultyRoom_Faculty" Association="Fond63Model.FK_UnifercityFacultyRoom_Faculty">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UnifercityFacultyRoom_Room" Association="Fond63Model.FK_UnifercityFacultyRoom_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UnifercityFacultyRoom_Unifercity" Association="Fond63Model.FK_UnifercityFacultyRoom_Unifercity">
+      <End Role="Unifercity" EntitySet="Unifercity" />
+      <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Faculty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UnifercityFacultyRoom" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Faculty" FromRole="Faculty" ToRole="UnifercityFacultyRoom" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Width" Type="Int32" />
+    <Property Name="Height" Type="Int32" />
+    <Property Name="Area" Type="Int32" />
+    <Property Name="Volume" Type="Int32" />
+    <Property Name="Lenght" Type="Int32" />
+    <NavigationProperty Name="UnifercityFacultyRoom" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Room" FromRole="Room" ToRole="UnifercityFacultyRoom" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Unifercity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UnifercityFacultyRoom" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Unifercity" FromRole="Unifercity" ToRole="UnifercityFacultyRoom" />
+  </EntityType>
+  <EntityType Name="UnifercityFacultyRoom">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUnifersity" Type="Int32" />
+    <Property Name="IdFaculty" Type="Int32" />
+    <Property Name="IdRoom" Type="Int32" />
+    <NavigationProperty Name="Faculty" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Faculty" FromRole="UnifercityFacultyRoom" ToRole="Faculty" />
+    <NavigationProperty Name="Room" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Room" FromRole="UnifercityFacultyRoom" ToRole="Room" />
+    <NavigationProperty Name="Unifercity" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Unifercity" FromRole="UnifercityFacultyRoom" ToRole="Unifercity" />
+  </EntityType>
+  <Association Name="FK_UnifercityFacultyRoom_Faculty">
+    <End Type="Fond63Model.Faculty" Role="Faculty" Multiplicity="0..1" />
+    <End Type="Fond63Model.UnifercityFacultyRoom" Role="UnifercityFacultyRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UnifercityFacultyRoom">
+        <PropertyRef Name="IdFaculty" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UnifercityFacultyRoom_Room">
+    <End Type="Fond63Model.Room" Role="Room" Multiplicity="0..1" />
+    <End Type="Fond63Model.UnifercityFacultyRoom" Role="UnifercityFacultyRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UnifercityFacultyRoom">
+        <PropertyRef Name="IdRoom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UnifercityFacultyRoom_Unifercity">
+    <End Type="Fond63Model.Unifercity" Role="Unifercity" Multiplicity="0..1" />
+    <End Type="Fond63Model.UnifercityFacultyRoom" Role="UnifercityFacultyRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unifercity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UnifercityFacultyRoom">
+        <PropertyRef Name="IdUnifersity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

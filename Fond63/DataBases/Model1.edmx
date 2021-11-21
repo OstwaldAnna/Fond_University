@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Fond63Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Width" Type="int" />
+          <Property Name="Height" Type="int" />
+          <Property Name="Area" Type="int" />
+          <Property Name="Volume" Type="int" />
+          <Property Name="Lenght" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Unifercity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UnifercityFacultyRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUnifersity" Type="int" />
+          <Property Name="IdFaculty" Type="int" />
+          <Property Name="IdRoom" Type="int" />
+        </EntityType>
+        <Association Name="FK_UnifercityFacultyRoom_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+          <End Role="UnifercityFacultyRoom" Type="Self.UnifercityFacultyRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnifercityFacultyRoom">
+              <PropertyRef Name="IdFaculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnifercityFacultyRoom_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="UnifercityFacultyRoom" Type="Self.UnifercityFacultyRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnifercityFacultyRoom">
+              <PropertyRef Name="IdRoom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnifercityFacultyRoom_Unifercity">
+          <End Role="Unifercity" Type="Self.Unifercity" Multiplicity="0..1" />
+          <End Role="UnifercityFacultyRoom" Type="Self.UnifercityFacultyRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unifercity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnifercityFacultyRoom">
+              <PropertyRef Name="IdUnifersity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Fond63ModelContainer">
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unifercity" EntityType="Self.Unifercity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnifercityFacultyRoom" EntityType="Self.UnifercityFacultyRoom" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UnifercityFacultyRoom_Faculty" Association="Self.FK_UnifercityFacultyRoom_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnifercityFacultyRoom_Room" Association="Self.FK_UnifercityFacultyRoom_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnifercityFacultyRoom_Unifercity" Association="Self.FK_UnifercityFacultyRoom_Unifercity">
+            <End Role="Unifercity" EntitySet="Unifercity" />
+            <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Fond63Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Fond63Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Faculty" EntityType="Fond63Model.Faculty" />
+          <EntitySet Name="Room" EntityType="Fond63Model.Room" />
+          <EntitySet Name="sysdiagrams" EntityType="Fond63Model.sysdiagrams" />
+          <EntitySet Name="Unifercity" EntityType="Fond63Model.Unifercity" />
+          <EntitySet Name="UnifercityFacultyRoom" EntityType="Fond63Model.UnifercityFacultyRoom" />
+          <AssociationSet Name="FK_UnifercityFacultyRoom_Faculty" Association="Fond63Model.FK_UnifercityFacultyRoom_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnifercityFacultyRoom_Room" Association="Fond63Model.FK_UnifercityFacultyRoom_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnifercityFacultyRoom_Unifercity" Association="Fond63Model.FK_UnifercityFacultyRoom_Unifercity">
+            <End Role="Unifercity" EntitySet="Unifercity" />
+            <End Role="UnifercityFacultyRoom" EntitySet="UnifercityFacultyRoom" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UnifercityFacultyRoom" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Faculty" FromRole="Faculty" ToRole="UnifercityFacultyRoom" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="Int32" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="Area" Type="Int32" />
+          <Property Name="Volume" Type="Int32" />
+          <Property Name="Lenght" Type="Int32" />
+          <NavigationProperty Name="UnifercityFacultyRoom" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Room" FromRole="Room" ToRole="UnifercityFacultyRoom" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Unifercity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UnifercityFacultyRoom" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Unifercity" FromRole="Unifercity" ToRole="UnifercityFacultyRoom" />
+        </EntityType>
+        <EntityType Name="UnifercityFacultyRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUnifersity" Type="Int32" />
+          <Property Name="IdFaculty" Type="Int32" />
+          <Property Name="IdRoom" Type="Int32" />
+          <NavigationProperty Name="Faculty" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Faculty" FromRole="UnifercityFacultyRoom" ToRole="Faculty" />
+          <NavigationProperty Name="Room" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Room" FromRole="UnifercityFacultyRoom" ToRole="Room" />
+          <NavigationProperty Name="Unifercity" Relationship="Fond63Model.FK_UnifercityFacultyRoom_Unifercity" FromRole="UnifercityFacultyRoom" ToRole="Unifercity" />
+        </EntityType>
+        <Association Name="FK_UnifercityFacultyRoom_Faculty">
+          <End Type="Fond63Model.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="Fond63Model.UnifercityFacultyRoom" Role="UnifercityFacultyRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnifercityFacultyRoom">
+              <PropertyRef Name="IdFaculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnifercityFacultyRoom_Room">
+          <End Type="Fond63Model.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="Fond63Model.UnifercityFacultyRoom" Role="UnifercityFacultyRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnifercityFacultyRoom">
+              <PropertyRef Name="IdRoom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnifercityFacultyRoom_Unifercity">
+          <End Type="Fond63Model.Unifercity" Role="Unifercity" Multiplicity="0..1" />
+          <End Type="Fond63Model.UnifercityFacultyRoom" Role="UnifercityFacultyRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unifercity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnifercityFacultyRoom">
+              <PropertyRef Name="IdUnifersity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Fond63ModelContainer" CdmEntityContainer="Fond63Entities">
+          <EntitySetMapping Name="Faculty">
+            <EntityTypeMapping TypeName="Fond63Model.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Room">
+            <EntityTypeMapping TypeName="Fond63Model.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Lenght" ColumnName="Lenght" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Fond63Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unifercity">
+            <EntityTypeMapping TypeName="Fond63Model.Unifercity">
+              <MappingFragment StoreEntitySet="Unifercity">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnifercityFacultyRoom">
+            <EntityTypeMapping TypeName="Fond63Model.UnifercityFacultyRoom">
+              <MappingFragment StoreEntitySet="UnifercityFacultyRoom">
+                <ScalarProperty Name="IdRoom" ColumnName="IdRoom" />
+                <ScalarProperty Name="IdFaculty" ColumnName="IdFaculty" />
+                <ScalarProperty Name="IdUnifersity" ColumnName="IdUnifersity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
